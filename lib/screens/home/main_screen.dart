@@ -36,8 +36,8 @@ class _MainScreenState extends State<MainScreen> {
         child: MyAppBar(),
       ),
       body: PageStorage(
-        child: currentScreen,
         bucket: bucket,
+        child: currentScreen,
       ),
       floatingActionButton: const AnimatedFAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

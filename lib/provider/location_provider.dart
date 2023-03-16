@@ -12,7 +12,7 @@ class LocationProvider with ChangeNotifier {
   double latitude = 0.0;
   double longitude = 0.0;
   PermissionStatus permissionGranted = PermissionStatus.denied;
-  LocationData? userLocation;
+  Position? userLocation;
   Address address = Address();
   GeoCode geoCode = GeoCode();
   late StreamSubscription<LocationData> stream;
@@ -37,22 +37,25 @@ class LocationProvider with ChangeNotifier {
         return "Permission-Denied";
       }
     }
-
-    await location.getLocation().then((currentLocation) {
+    print("Yayy");
+    await Geolocator.getCurrentPosition().then((currentLocation) {
       userLocation = currentLocation;
       latitude = currentLocation.latitude ?? 0;
       longitude = currentLocation.longitude ?? 0;
     });
-
+    print("Wohooo");
     await getAddress(userLocation!.latitude, userLocation!.longitude);
 
-    stream = location.onLocationChanged.listen((LocationData currentLocation) async {
-      latitude = currentLocation.latitude!;
-      longitude = currentLocation.longitude!;
-      userLocation = currentLocation;
-      await getAddress(userLocation!.latitude, userLocation!.longitude);
-      notifyListeners();
-    });
+    // Geolocator.getServiceStatusStream()
+    // stream = location.onLocationChanged.listen((LocationData currentLocation) async {
+    //   latitude = currentLocation.latitude!;
+    //   longitude = currentLocation.longitude!;
+    //   userLocation = currentLocation;
+    //   await getAddress(userLocation!.latitude, userLocation!.longitude);
+    //   notifyListeners();
+    // });
+
+
     return "Success";
   }
 

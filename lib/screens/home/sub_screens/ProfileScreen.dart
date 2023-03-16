@@ -4,6 +4,8 @@ import 'package:locotour/Modules/Events.dart';
 import 'package:locotour/screens/home/widgets/ProfileEventContainer.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -21,31 +23,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Container(
                     height: 150,
-                    padding: EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(30),
                     color: Colors.black,
                     child: Row(
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 35,
                           backgroundImage: AssetImage(
                             'assets/pp.jpg',
                           ),
                         ),
-                        SizedBox(width: 30),
+                        const SizedBox(width: 30),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Marwan Pablo',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.location_on_outlined,
                                   color: Colors.white,
@@ -66,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     right: 10,
                     bottom: 20,
                     child: Icon(
@@ -77,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 25),
+                padding: const EdgeInsets.symmetric(vertical: 25),
                 child: Row(
                   children: [
                     Expanded(
@@ -136,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: profileEvents.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {

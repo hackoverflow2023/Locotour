@@ -25,7 +25,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   @override
   void initState() {
     super.initState();
-    BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1, 1)),
+    BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size(1, 1)),
         'assets/images/dustbin.png')
         .then((d) {
       dustbinIcon = d;

@@ -1,65 +1,65 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:locotour/constants.dart';
-import 'package:locotour/screens/home/main_screen.dart';
-import 'package:locotour/screens/login/login_screen.dart';
+import 'package:locotour/model/locationNavigator.dart';
+import 'package:locotour/provider/location_provider.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String id = 'splash-screen';
 
   const SplashScreen({Key? key}) : super(key: key);
+
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    timer();
-  }
-
-  timer() {
-    Timer(Duration(seconds: 5),
-            () { 
-      Navigator.pushReplacementNamed(context, LoginScreen.id);
-
-      
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final locationProvider = Provider.of<LocationProvider>(context);
+
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            decoration: BoxDecoration(color: Colors.green),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: height(context) * 0.3,
-                        width: width(context) * 0.3,
-                        // child: Image.asset('assets/images/logo.png'),
-                      ),
-                    ],
-                  ),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/splash_image.jpg',
+              width: width(context) * .5,
+            ),
+            const Center(
+              child: Text(
+                "KudaCam",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
                 ),
-              )
-            ],
-          ),
-        ],
+              ),
+            ),
+            FutureBuilder(
+              future: locationProvider.getUserCurrentLocation(),
+              builder: (context, snapshot) {
+                if(snapshot.hasData) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) async {
+                    await Future.delayed(const Duration(seconds: 2));
+                    // Navigator.of(context).pushReplacementNamed(NavigatePage.id);
+                    print("Navigating to LNP");
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const LocationNavigatePage()));
+                  });
+
+                }
+                return const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
