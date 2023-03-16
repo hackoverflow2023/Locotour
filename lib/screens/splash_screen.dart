@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:locotour/constants.dart';
+import 'package:locotour/screens/home/main_screen.dart';
 import 'package:locotour/screens/login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,7 +23,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   timer() {
     Timer(Duration(seconds: 5),
-            () => Navigator.pushReplacementNamed(context, LoginScreen.id));
+            () { 
+      Navigator.pushReplacementNamed(context, LoginScreen.id);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainScreen()));
+      
+    });
   }
 
   @override

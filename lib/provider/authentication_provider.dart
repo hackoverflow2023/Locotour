@@ -64,7 +64,7 @@ class AuthenticationProvider with ChangeNotifier {
     // notifyListeners();
   }
 
-  void signOut(BuildContext context) async {
+  void signOut() async {
     // await FirebaseAuth.instance.signOut();
     // Navigator.pushReplacement(context,
     //     MaterialPageRoute(builder: (_) => const LoginScreen()));
