@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:locotour/constants.dart';
+import 'package:locotour/provider/authentication_provider.dart';
 import 'package:locotour/screens/splash_screen.dart';
 import 'package:locotour/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // runApp(
-  //   MultiProvider(
-  //     providers: [
-  //       ChangeNotifierProvider(
-  //         create: (_) => AuthenticationProvider(),
-  //       ),
-  //       ChangeNotifierProvider(
-  //         create: (_) => LocationProvider(),
-  //       ),
-  //       ChangeNotifierProvider(
-  //         create: (_) => ComplaintProvider(),
-  //       ),
-  //     ],
-  //     child: const MyApp(),
-  //   ),
-  // );
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthenticationProvider(),
+        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => LocationProvider(),
+        // ),
+        // ChangeNotifierProvider(
+        //   create: (_) => ComplaintProvider(),
+        // ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'KudaCam',
+      title: 'LocoTour',
       theme: theme(),
       home: const SplashScreen(),
       routes: routes,
