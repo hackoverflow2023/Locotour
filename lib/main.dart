@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:locotour/constants.dart';
+import 'package:locotour/firebase_options.dart';
 import 'package:locotour/provider/authentication_provider.dart';
 import 'package:locotour/provider/complaint_provider.dart';
 import 'package:locotour/provider/location_provider.dart';
@@ -38,7 +39,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   void initializeFlutterFire() async {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform
+    );
   }
 
   @override
