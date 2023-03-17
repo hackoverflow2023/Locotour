@@ -1,86 +1,125 @@
 import 'package:flutter/material.dart';
 
-class CommunityScreen extends StatefulWidget {
-  const CommunityScreen({Key? key}) : super(key: key);
+class CommunityScreen extends StatelessWidget {
+  final List<String> _posts = [    'https://picsum.photos/id/237/200/300',    'https://picsum.photos/id/238/200/300',    'https://picsum.photos/id/239/200/300',    'https://picsum.photos/id/240/200/300',  ];
 
-  @override
-  State<CommunityScreen> createState() => _CommunityScreenState();
-}
+  CommunityScreen({super.key});
 
-class _CommunityScreenState extends State<CommunityScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: const [
-                  CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage("https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: const Icon(Icons.camera_alt),
+        title: const Text(
+          'Community',
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Billabong',
+            fontSize: 28,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.live_tv),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.send),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    width: 70,
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage(
+                              'https://picsum.photos/id/1$index/200/200'),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'user$index',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "name",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )
-                ],
+                  );
+                },
               ),
-              const Icon(Icons.more_vert)
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            const Divider(thickness: 1),
+            const SizedBox(height: 8),
+            Column(
+              children: _posts.map((post) => _buildPost(post)).toList(),
+            ),
+          ],
         ),
-        //post
-        Container(
-          color: Colors.grey[300],
-          child: Image.asset("assets/images/event8.jpg"),
-        ),
-        //below the post -> buttons and comments
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: const [
-                  Icon(Icons.favorite),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Icon(Icons.chat_bubble_outline),
-                  ),
-                  Icon(Icons.share),
-                ],
-              ),
-              const Icon(Icons.bookmark),
-            ],
-          ),
-        ),
+      ),
+    );
+  }
 
-        //comments
-        Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Row(children: const [
-            Text('Liked by'),
-            Text(
-              'Samarth',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(' and '),
-            Text(
-              'Others',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ]),
-        )
-      ],
+  Widget _buildPost(String imageUrl) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: const [
+              CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage(
+                    'https://picsum.photos/id/2/200/200'),
+              ),
+              SizedBox(width: 8),
+              Text(
+                'user1',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Image.network(
+            imageUrl,
+            width: double.infinity,
+            height: 300,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.favorite_border),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.mode_comment_outlined),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.send),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

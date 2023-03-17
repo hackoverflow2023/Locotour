@@ -37,13 +37,11 @@ class LocationProvider with ChangeNotifier {
         return "Permission-Denied";
       }
     }
-    print("Yayy");
     await Geolocator.getCurrentPosition().then((currentLocation) {
       userLocation = currentLocation;
       latitude = currentLocation.latitude ?? 0;
       longitude = currentLocation.longitude ?? 0;
     });
-    print("Wohooo");
     await getAddress(userLocation!.latitude, userLocation!.longitude);
 
     // Geolocator.getServiceStatusStream()

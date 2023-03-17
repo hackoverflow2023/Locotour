@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   // to keep track of active tab index
   final List<Widget> screens = [
     const HomeScreen(),
-    const CommunityScreen(),
+    CommunityScreen(),
     EventScreen(),
     const ProfilePage(),
   ];
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
               'Home',
             ),
             _bottomNavIcon(
-              const CommunityScreen(),
+              CommunityScreen(),
               1,
               Icons.people_alt_outlined,
               'Community',

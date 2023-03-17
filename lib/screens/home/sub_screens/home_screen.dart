@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:locotour/constants.dart';
 import 'package:locotour/model/google_map.dart';
 import 'package:locotour/provider/location_provider.dart';
+import 'package:locotour/provider/renter_provider.dart';
 import 'package:locotour/screens/home/widgets/renters_list.dart';
 import 'package:locotour/services/complaint_service.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<LocationProvider>(context);
+    final renterProvider = Provider.of<RenterProvider>(context);
     bool first = false;
 
     return Scaffold(
@@ -40,42 +42,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   color: Colors.white,
                   child: StreamBuilder<QuerySnapshot>(
-                    stream: ComplaintService().complaints,
+                    stream: ComplaintService().renters,
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
-                        Map nearbyComplaints = snapshot.data!.docs.asMap();
+                        Map nearbyRenters = snapshot.data!.docs.asMap();
+                        renterProvider.setRenterDetails(nearbyRenters);
                         return ListView.builder(
                           controller: controller,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (BuildContext ctxt, int index) {
                             if(index == 0 || first == true) {
-                              if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {
+                              if (locationProvider.getDistance(nearbyRenters[index]["Location"]) <= 2) {
                                 first = false;
                                 return RentersList(
-                                  image: nearbyComplaints[index]["image"],
-                                  address: nearbyComplaints[index]["address"],
-                                  startLatitude: locationProvider.latitude,
-                                  startLongitude: locationProvider.longitude,
-                                  endLatitude: nearbyComplaints[index]["location"].latitude,
-                                  endLongitude: nearbyComplaints[index]["location"].longitude,
+                                  index: index,
                                   isFirst: true,
                                 );
                               } else {
                                 first = true;
                               }
                             } else {
-                              if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {
+                              if (locationProvider.getDistance(nearbyRenters[index]["Location"]) <= 2) {
                                 return RentersList(
-                                  image: nearbyComplaints[index]["image"],
-                                  address: nearbyComplaints[index]["address"],
-                                  startLatitude: locationProvider.latitude,
-                                  startLongitude: locationProvider.longitude,
-                                  endLatitude: nearbyComplaints[index]["location"].latitude,
-                                  endLongitude: nearbyComplaints[index]["location"].longitude,
+                                  index: index,
                                   isFirst: false,
                                 );
                               }

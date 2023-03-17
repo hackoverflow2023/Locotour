@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:locotour/constants.dart';
 import 'package:locotour/model/locationNavigator.dart';
 import 'package:locotour/provider/location_provider.dart';
@@ -25,19 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/splash_image.jpg',
-              width: width(context) * .5,
-            ),
-            const Center(
-              child: Text(
-                "KudaCam",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
+            SvgPicture.asset(
+              'assets/images/logo.svg',
+              height: 300,
+              width: 300,
             ),
             FutureBuilder(
               future: locationProvider.getUserCurrentLocation(),
@@ -45,8 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 if(snapshot.hasData) {
                   WidgetsBinding.instance.addPostFrameCallback((_) async {
                     await Future.delayed(const Duration(seconds: 2));
-                    // Navigator.of(context).pushReplacementNamed(NavigatePage.id);
-                    print("Navigating to LNP");
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const LocationNavigatePage()));
                   });
 

@@ -4,7 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:locotour/constants.dart';
 import 'package:locotour/firebase_options.dart';
 import 'package:locotour/provider/authentication_provider.dart';
-import 'package:locotour/provider/complaint_provider.dart';
+import 'package:locotour/provider/renter_provider.dart';
 import 'package:locotour/provider/location_provider.dart';
 import 'package:locotour/screens/splash_screen.dart';
 import 'package:locotour/theme.dart';
@@ -22,7 +22,7 @@ void main() {
           create: (_) => LocationProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => ComplaintProvider(),
+          create: (_) => RenterProvider(),
         ),
       ],
       child: const MyApp(),

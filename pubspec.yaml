@@ -26,6 +26,8 @@ dependencies:
   google_maps_flutter: ^2.2.5
   percent_indicator: ^4.2.3
   cached_network_image: ^3.2.3
+  flutter_svg: ^2.0.4
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

@@ -23,5 +23,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   // NavigatePage.id : (context) => NavigatePage(),
   SignupPage.id : (context) => const SignupPage(),
   SplashScreen.id : (context) => const SplashScreen(),
-  RenterDetailsScreen.id : (context) => const RenterDetailsScreen(),
+  RenterDetailsScreen.id : (context) => RenterDetailsScreen(),
 };
