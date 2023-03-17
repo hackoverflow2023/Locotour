@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locotour/screens/home/sub_screens/renter_details_screen.dart';
 import 'package:locotour/screens/login/login_screen.dart';
 import 'package:locotour/screens/login/signup_screen.dart';
 import 'package:locotour/screens/splash_screen.dart';
@@ -17,9 +18,10 @@ Map<String, Widget Function(BuildContext)> routes = {
   // BinScreen.id : (context) => BinScreen(),
   // ComplaintDetails.id : (context) => ComplaintDetails(),
   // ComplaintList.id : (context) => ComplaintList(),
-  LoginScreen.id : (context) => LoginScreen(),
+  LoginScreen.id : (context) => const LoginScreen(),
   // MainScreen.id : (context) => MainScreen(),
   // NavigatePage.id : (context) => NavigatePage(),
-  SignupPage.id : (context) => SignupPage(),
-  SplashScreen.id : (context) => SplashScreen(),
+  SignupPage.id : (context) => const SignupPage(),
+  SplashScreen.id : (context) => const SplashScreen(),
+  RenterDetailsScreen.id : (context) => const RenterDetailsScreen(),
 };

@@ -37,7 +37,7 @@ class _EventScreenState extends State<EventScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.keyboard_backspace,
                           color: Colors.white,
                         ),
@@ -51,7 +51,7 @@ class _EventScreenState extends State<EventScreen> {
                         child: Text(
                           widget.event.date,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                           ),
@@ -69,12 +69,12 @@ class _EventScreenState extends State<EventScreen> {
                     children: [
                       Text(
                         widget.event.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 35,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Icon(
@@ -83,7 +83,7 @@ class _EventScreenState extends State<EventScreen> {
                           ),
                           Text(
                             widget.event.category['name'],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -105,13 +105,13 @@ class _EventScreenState extends State<EventScreen> {
                   children: [
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.location_on_outlined,
                           size: 15,
                         ),
                         Text(
                           widget.event.location,
-                          style: TextStyle(
+                          style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 15,
                           ),
@@ -120,38 +120,38 @@ class _EventScreenState extends State<EventScreen> {
                     ),
                     Text(
                       widget.event.fromTo,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15,
                       ),
                     )
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.event.participants.toString() + ' Participants',
-                      style: TextStyle(
+                      '${widget.event.participants} Participants',
+                      style: const TextStyle(
                         fontSize: 15,
                       ),
                     ),
                     Text(
-                      widget.event.duration.toString() + ' days duration',
-                      style: TextStyle(
+                      '${widget.event.duration} days duration',
+                      style: const TextStyle(
                         fontSize: 15,
                       ),
                     )
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   height: 50,
                   width: MediaQuery.of(context).size.width,
                   child: Material(
                     color: KAppColor,
                     child: MaterialButton(
-                      child: Text(
+                      child: const Text(
                         'BUY TICKET',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -163,21 +163,21 @@ class _EventScreenState extends State<EventScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'About',
                   style: TextStyle(
                     fontSize: 30,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   widget.event.about,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           )

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locotour/model/animated_fab.dart';
 import 'package:locotour/screens/home/sub_screens/ProfilePage.dart';
 import 'package:locotour/screens/home/sub_screens/community_screen.dart';
 import 'package:locotour/screens/home/sub_screens/eventPage.dart';
@@ -39,140 +38,72 @@ class _MainScreenState extends State<MainScreen> {
         bucket: bucket,
         child: currentScreen,
       ),
-      floatingActionButton: const AnimatedFAB(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const HomeScreen(); // if user taps on this dashboard tab will be active
-                        currentTab = 0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          CupertinoIcons.home,
-                          color: currentTab == 0 ? Colors.orange : Colors.grey,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'Home',
-                            style: TextStyle(
-                              color: currentTab == 0 ? Colors.orange : Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen =
-                            const CommunityScreen(); // if user taps on this dashboard tab will be active
-                        currentTab = 1;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.people_alt_outlined,
-                          color: currentTab == 1 ? Colors.orange : Colors.grey,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'Community',
-                            style: TextStyle(
-                              color: currentTab == 1 ? Colors.orange : Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+        height: 60,
+        child: Row(
+          children: <Widget>[
+            _bottomNavIcon(
+              const HomeScreen(),
+              0,
+              CupertinoIcons.home,
+              'Home',
+            ),
+            _bottomNavIcon(
+              const CommunityScreen(),
+              1,
+              Icons.people_alt_outlined,
+              'Community',
+            ),
+            _bottomNavIcon(
+              EventScreen(),
+              2,
+              Icons.event_outlined,
+              'Bookings',
+            ),
+            _bottomNavIcon(
+              const ProfilePage(),
+              3,
+              CupertinoIcons.profile_circled,
+              'Profile',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _bottomNavIcon(
+      Widget navWidget, int currentTabIndex, IconData icon, String title) {
+    return Expanded(
+      child: MaterialButton(
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          setState(() {
+            currentScreen = navWidget;
+            currentTab = currentTabIndex;
+          });
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              icon,
+              color: currentTab == currentTabIndex ? Colors.orange : Colors.grey,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 12,
+                  color:
+                      currentTab == currentTabIndex ? Colors.orange : Colors.grey,
+                ),
               ),
-
-              // Right Tab bar icons
-
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen =
-                             EventScreen(); // if user taps on this dashboard tab will be active
-                        currentTab = 2;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.event_outlined,
-                          color: currentTab == 2 ? Colors.orange : Colors.grey,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'Events',
-                            style: TextStyle(
-                              color: currentTab == 2 ? Colors.orange : Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen =
-                            const ProfilePage(); // if user taps on this dashboard tab will be active
-                        currentTab = 3;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          CupertinoIcons.profile_circled,
-                          color: currentTab == 3 ? Colors.orange : Colors.grey,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'Profile',
-                            style: TextStyle(
-                              color: currentTab == 3 ? Colors.orange : Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

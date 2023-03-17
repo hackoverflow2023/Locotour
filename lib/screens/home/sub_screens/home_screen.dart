@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:locotour/constants.dart';
 import 'package:locotour/model/google_map.dart';
 import 'package:locotour/provider/location_provider.dart';
-import 'package:locotour/screens/home/widgets/complaint_list.dart';
+import 'package:locotour/screens/home/widgets/renters_list.dart';
 import 'package:locotour/services/complaint_service.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             if(index == 0 || first == true) {
                               if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {
                                 first = false;
-                                return ComplaintList(
+                                return RentersList(
                                   image: nearbyComplaints[index]["image"],
                                   address: nearbyComplaints[index]["address"],
                                   startLatitude: locationProvider.latitude,
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               }
                             } else {
                               if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {
-                                return ComplaintList(
+                                return RentersList(
                                   image: nearbyComplaints[index]["image"],
                                   address: nearbyComplaints[index]["address"],
                                   startLatitude: locationProvider.latitude,

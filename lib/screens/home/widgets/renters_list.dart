@@ -2,14 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:locotour/provider/location_provider.dart';
+import 'package:locotour/screens/home/sub_screens/renter_details_screen.dart';
 import 'package:provider/provider.dart';
 
-class ComplaintList extends StatefulWidget with ChangeNotifier{
+class RentersList extends StatefulWidget with ChangeNotifier{
   final String image, address;
   final double startLatitude, startLongitude, endLatitude, endLongitude;
   final bool isFirst;
 
-  ComplaintList(
+  RentersList(
       {Key? key,
       required this.image,
       required this.address,
@@ -21,10 +22,10 @@ class ComplaintList extends StatefulWidget with ChangeNotifier{
       : super(key: key);
 
   @override
-  _ComplaintListState createState() => _ComplaintListState();
+  _RentersListState createState() => _RentersListState();
 }
 
-class _ComplaintListState extends State<ComplaintList> {
+class _RentersListState extends State<RentersList> {
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,13 @@ class _ComplaintListState extends State<ComplaintList> {
     final locationProvider = Provider.of<LocationProvider>(context);
 
     Future<double> getDistance() async {
-      double _distance = Geolocator.distanceBetween(
+      double distance = Geolocator.distanceBetween(
         locationProvider.latitude,
         locationProvider.longitude,
         widget.endLatitude,
         widget.endLongitude,
       ) / 1000;
-      return double.parse(_distance.toStringAsFixed(2));
+      return double.parse(distance.toStringAsFixed(2));
     }
 
     return Column(
@@ -57,7 +58,7 @@ class _ComplaintListState extends State<ComplaintList> {
         widget.isFirst ? Container(
           padding: const EdgeInsets.only(top: 5.0, left: 10, bottom: 10),
           child: const Text(
-            "Nearby Complaints",
+            "Nearby Renters",
             style: TextStyle(
               fontSize: 23,
               fontWeight: FontWeight.bold,
@@ -68,7 +69,9 @@ class _ComplaintListState extends State<ComplaintList> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RenterDetailsScreen.id);
+            },
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
