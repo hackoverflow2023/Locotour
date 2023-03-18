@@ -163,6 +163,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           validateLogin();
                         },
                         padding: const EdgeInsets.all(0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
@@ -188,9 +191,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
                         ),
                       ),
                     ),

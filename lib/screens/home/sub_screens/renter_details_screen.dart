@@ -1,6 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:locotour/provider/renter_provider.dart';
+import 'package:locotour/screens/home/sub_screens/book_order_screen.dart';
 import 'package:locotour/screens/home/widgets/renter_appbar.dart';
+import 'package:provider/provider.dart';
 
 class RenterDetailsScreen extends StatelessWidget {
   static const String id = 'renter-details-screen';
@@ -9,12 +12,22 @@ class RenterDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final renterProvider = Provider.of<RenterProvider>(context);
+    final length = renterProvider.getRenterDetails()[index]["Photos"].length;
+    final reviews = renterProvider.getRenterDetails()[index]["Reviews"];
     return Scaffold(
       appBar: AppBar(),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BookOrderScreen()));
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+            fixedSize:
+                MaterialStateProperty.all<Size>(const Size.fromHeight(45)),
+          ),
           child: const Text('Book Order'),
         ),
       ),
@@ -30,14 +43,11 @@ class RenterDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 200,
               child: CarouselSlider(
-                items: [
-                  Image.network(
-                      'https://imgd.aeplcdn.com/1056x594/n/cw/ec/102709/ntorq-125-right-front-three-quarter.jpeg?isig=0&q=75'),
-                  Image.network(
-                      'https://cdn.pixabay.com/photo/2015/10/30/20/13/sunrise-1014712__340.jpg'),
-                  Image.network(
-                      'https://cdn.pixabay.com/photo/2016/11/21/14/52/beach-1845810__340.jpg'),
-                ],
+                items: renterProvider
+                    .getRenterDetails()[index]["Photos"]
+                    .map<Widget>((url) {
+                  return Image.network(url);
+                }).toList(),
                 options: CarouselOptions(
                   autoPlay: true,
                   aspectRatio: 16 / 9,
@@ -48,8 +58,8 @@ class RenterDetailsScreen extends StatelessWidget {
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
+              children: List.generate(length, (index) {
+                return Container(
                   width: 4,
                   height: 4,
                   margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -57,50 +67,29 @@ class RenterDetailsScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: Colors.grey,
                   ),
-                ),
-                Container(
-                  width: 4,
-                  height: 4,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey,
-                  ),
-                ),
-                Container(
-                  width: 4,
-                  height: 4,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
+                );
+              }),
             ),
             const SizedBox(height: 20),
-            // Expanded(
-            //   child: StreamBuilder<QuerySnapshot>(
-            //     stream: firestore.collection('services').snapshots(),
-            //     builder: (context, snapshot) {
-            //       if (!snapshot.hasData) {
-            //         return Center(child: CircularProgressIndicator());
-            //       }
-            //       final services = snapshot.data.docs;
-            //       return ListView.builder(
-            //         itemCount: services.length,
-            //         itemBuilder: (context, index) {
-            //           final service = services[index];
-            //           return ListTile(
-            //             title: Text(service['name']),
-            //             subtitle: Text(service['description']),
-            //             trailing: Text('\$${service['price']}'),
-            //           );
-            //         },
-            //       );
-            //     },
-            //   ),
-            // ),
+            Text(
+              'Services Available',
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                itemCount: renterProvider.getRenterDetails()[index]["Services"].length,
+                itemBuilder: (context, indexx) {
+                  final service = renterProvider.getRenterDetails()[index]["Services"];
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8, bottom: 8, left: 15),
+                    child: Text(service[indexx]),
+                  );
+                },
+              ),
+            ),
             const SizedBox(height: 20),
             Text(
               'Customer Reviews',
@@ -108,60 +97,34 @@ class RenterDetailsScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
-            Container(
-              color: Colors.amber,
+            SizedBox(
               height: 150,
               child: CarouselSlider(
-                items: [
-                  Column(
-                    children: const [
+                items: reviews.map<Widget>((it) {
+                  return Column(
+                    children: [
                       CircleAvatar(
                         backgroundImage:
-                            NetworkImage('https://example.com/avatar1.jpg'),
+                        NetworkImage(it["Image"]!),
                       ),
-                      SizedBox(height: 10),
-                      Text('John Doe'),
-                      SizedBox(height: 10),
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: const [
-                      CircleAvatar(
-                        backgroundImage:
-                            NetworkImage('https://example.com/avatar1.jpg'),
-                      ),
-                      SizedBox(height: 10),
-                      Text('John Doe'),
-                      SizedBox(height: 10),
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        textAlign: TextAlign.center,
+                      const SizedBox(height: 10),
+                      Text(it["Name"]!),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                        child: Text(
+                          it["Note"]!,
+                          textAlign: TextAlign.justify,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
-                  ),
-                  Column(
-                    children: const [
-                      CircleAvatar(
-                        backgroundImage:
-                            NetworkImage('https://example.com/avatar1.jpg'),
-                      ),
-                      SizedBox(height: 10),
-                      Text('John Doe'),
-                      SizedBox(height: 10),
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ],
+                  );
+                }).toList(),
                 options: CarouselOptions(
                   aspectRatio: 16 / 9,
-                  viewportFraction: 0.95,
+                  viewportFraction: 1,
                 ),
               ),
             ),

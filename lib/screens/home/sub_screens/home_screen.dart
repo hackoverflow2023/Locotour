@@ -5,7 +5,7 @@ import 'package:locotour/model/google_map.dart';
 import 'package:locotour/provider/location_provider.dart';
 import 'package:locotour/provider/renter_provider.dart';
 import 'package:locotour/screens/home/widgets/renters_list.dart';
-import 'package:locotour/services/complaint_service.dart';
+import 'package:locotour/services/renter_service.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   color: Colors.white,
                   child: StreamBuilder<QuerySnapshot>(
-                    stream: ComplaintService().renters,
+                    stream: RenterService().renters,
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return const Center(

@@ -14,7 +14,6 @@ class RenterAppBar extends StatelessWidget {
       floating: true,
       snap: true,
       expandedHeight: 200,
-      primary: true,
       flexibleSpace: SizedBox(
         child: Card(
           child: Padding(
